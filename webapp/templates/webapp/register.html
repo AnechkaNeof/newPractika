@@ -1,0 +1,33 @@
+{% extends 'webapp/base.html' %}
+
+{% block content %}
+
+
+    <body>
+
+    <div class="container bg-light shadow-md p-5 form-loyout">
+
+        <h3>Создайте ваш аккаунт</h3>
+        <h5>Начните управлять вашей базой клиентов уже сегодня!</h5>
+        <hr>
+        <br>
+
+        <form method="POST" autocomplete="off">
+
+            {% csrf_token %}
+            {{form.as_p}}
+
+            <br>
+            <button type="submit" class="btn btn-primary w-100 btn-block p-2">Создать аккаунт &nbsp; <i class="fa fa-user" aria-hidden="true"></i> </button>
+        </form>
+        <br>
+
+        <div class="text-center">
+            <p>У вас уже есть аккаунт?</p> <a href="{% url 'my-login' %}">Войти</a>
+        </div>
+        <br>
+
+    </div>
+
+    </body>
+{% endblock %}

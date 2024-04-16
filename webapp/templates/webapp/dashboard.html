@@ -1,0 +1,102 @@
+{% extends 'webapp/base.html' %}
+
+{% block content  %}
+
+    <h5>Добро пожаловать в вашу базу клиентов, {{user}} </h5>
+    <hr>
+
+    <a class = "btn btn-outline-primary btn-sm" href="{% url 'create_record' %}">
+
+        Создать новую карточку клиента &nbsp; <i class="fa fa-plus-circle" aria-hidden="true"></i>
+
+    </a>
+    <hr>
+
+    <table class="table table-hover table-bordered">
+        <input type="text" id="searchInput" placeholder="Поиск...">
+        <br>
+
+        
+
+        <thead class="table-dark">
+            <br>
+            <script>
+                var table = document.querySelector(".table");
+            
+                var newRow = table.insertRow(0);
+            
+                var newCell = newRow.insertCell(0);
+                newCell.colSpan = "9";
+                newCell.style.textAlign = "center"; 
+                newCell.textContent = "Всего клиентов: {{ clients|length }}"; 
+            
+                newRow.classList.add("table-dark");
+            </script>
+
+        <br>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">ФИО</th>
+                <th scope="col">Почта</th>
+                <th scope="col">Номер телефона</th>
+                <th scope="col">Дата рождения</th>
+                <th scope="col">Страна</th>
+                <th scope="col">Тип клиента</th>
+                <th scope="col">Дата создания</th>
+
+                <th scope="col">Просмотр</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% if clients %}
+
+                {%  for client in clients %}
+
+                <tr>
+                    <td> {{client.id}} </td>
+                    <td> {{client.Lname}}  {{client.Fname}}  {{client.Mname}} </td>
+                    <td> {{client.email}} </td>
+                    <td> {{client.phone}} </td>
+                    <td> {{client.birthday}} </td>
+                    <td> {{client.country}} </td>
+                    <td> {{client.group}} </td>
+                    <td> {{client.creation_date}} </td>
+                    <td> <a  href="{% url 'record' client.id %}"> <i class="fa fa-eye" aria-hidden="true"></i> </a> </td>
+                </tr>
+                {%  endfor %}
+            
+            {%  endif %}
+
+        </tbody>
+
+    </table>
+
+    <script>
+        document.getElementById("searchInput").addEventListener("keyup", function() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.querySelector(".table");
+            tr = table.getElementsByTagName("tr");
+    
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Измените индекс на номер столбца, по которому хотите фильтровать
+    
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        });
+    </script>
+
+
+    
+
+{% endblock %}

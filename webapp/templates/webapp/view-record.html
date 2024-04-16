@@ -1,0 +1,40 @@
+{% extends 'webapp/base.html' %}
+
+{% block content  %}
+
+            
+    <div class="card">
+        <div class="card-body">
+             <i class="fa fa-user-circle-o" aria-hidden="true"></i> &nbsp;
+            <strong>
+                {{ client.Lname|upper }}
+                &nbsp; 
+                {{ client.Fname }} {{ client.Mname }}
+                <hr>
+            </strong>
+            <p> <strong> ID: </strong>  {{ client.id }} </p>
+            <p> <strong> Почта: </strong> {{ client.email }} </p>
+            <p> <strong> Номер телефон: </strong> {{ client.phone }} </p>
+            <p> <strong> Дата рождения: </strong> {{ client.birthday }} </p>
+            <p> <strong> Категория клиента: </strong> {{ client.group }} </p>
+            <p> <strong> Страна: </strong> {{ client.country }} </p>
+
+            <p> <strong> Дата создания: </strong> {{ client.creation_date }} </p>
+        </div>
+    
+    </div>
+
+    <br>
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary"> 
+        Вернуться &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </a>
+    &nbsp;
+    <a href="{% url 'update-record' client.id %}" class="btn btn-secondary"> 
+        Изменить карточку &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
+    </a> 
+    &nbsp;
+    <a href="{% url 'delete-record' client.id %}" class="btn btn-danger"> 
+        Удалить &nbsp; <i class="fa fa-minus" aria-hidden="true"></i>
+    </a>
+     
+{% endblock %}
